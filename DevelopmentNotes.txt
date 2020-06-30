@@ -1,0 +1,103 @@
+Creating sln and project files from the command prompt
+
+E:\git\repos>mkdir skinet
+E:\git\repos>cd skinet
+E:\git\repos\skinet>dotnet -h
+E:\git\repos\skinet>dotnet new -h
+E:\git\repos\skinet>dotnet new sln
+E:\git\repos\skinet>dotnet new webapi -o API   -->-o is the define a new directory, namely API
+E:\git\repos\skinet>dotnet sln -h
+E:\git\repos\skinet>dotnet sln add API
+E:\git\repos\skinet>dotnet sln list
+E:\git\repos\skinet>code . --> Finally opening up the VS Code editor from the command line
+
+In order to check whether things are setup correctly, we open up the terminal windown (Ctrl + ") and type this and check that a local host app has started correctly;
+
+Windows PowerShell
+Copyright (C) 2016 Microsoft Corporation. All rights reserved.
+
+PS E:\git\repos\skinet> cd .\API\
+PS E:\git\repos\skinet\API> dotnet run
+info: Microsoft.Hosting.Lifetime[0]
+      Now listening on: https://localhost:5001
+info: Microsoft.Hosting.Lifetime[0]
+      Now listening on: http://localhost:5000
+info: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+info: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Development
+info: Microsoft.Hosting.Lifetime[0]
+      Content root path: E:\git\repos\skinet\API
+info: Microsoft.Hosting.Lifetime[0]
+      Application is shutting down...
+PS E:\git\repos\skinet\API> dotnet dev-certs https
+A valid HTTPS certificate is already present.
+PS E:\git\repos\skinet\API> dotnet dev-certs https -h
+
+
+Usage: dotnet dev-certs https [options]
+
+Options:
+  -ep|--export-path  Full path to the exported certificate
+  -p|--password      Password to use when exporting the certificate with the private key into a pfx file
+  -c|--check         Check for the existence of the certificate but do not perform any action
+  --clean            Cleans all HTTPS development certificates from the machine.
+  -t|--trust         Trust the certificate on the current platform
+  -v|--verbose       Display more debug information.
+  -q|--quiet         Display warnings and errors only.
+  -h|--help          Show help information
+
+PS E:\git\repos\skinet\API> dotnet dev-certs https -t
+Trusting the HTTPS development certificate was requested. A confirmation prompt will be displayed if the certificate was not previously trusted. Click yes on the prompt to trust the certificate.
+A valid HTTPS certificate is already present.
+PS E:\git\repos\skinet\API> dotnet run
+info: Microsoft.Hosting.Lifetime[0]
+      Now listening on: https://localhost:5001
+info: Microsoft.Hosting.Lifetime[0]
+      Now listening on: http://localhost:5000
+info: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+info: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Development
+info: Microsoft.Hosting.Lifetime[0]
+      Content root path: E:\git\repos\skinet\API
+
+At this point https://localhost:5001/weatherforecast will be available with a result, which means thing are so far so good.
+
+Instead of restarting the dotnet app, we can use "dotnet watch run", which will start listening all the changes, and each time a code change is happen, then this will pick the change and restart the server automatically.
+
+To understand what dotnet sdks have been installed: dotnet --info . One thing that this returns is;
+
+Host (useful for support):
+  Version: 3.1.5 --> this the version of runtime that I am using and this needs to match with the Microsoft.EntityFrameworkCore & Sqlite version.
+  Commit:  65cd789777
+
+In order to restore the packages from the terminal window; dotnet restore
+
+
+
+
+********
+Angular setup notes:
+********
+Before creating an angular project, we need the following tools to be installed on our machine;
+
+Node.js - Angular runs on top of Node.js and Node.js is a JavaScript runtime built on Chrome's
+V8 JavaScript engine. https://nodejs.org/en/
+- We need Node.js to run Angular.
+- Also we need it because; Node.js comes with a package manager to download and install packages into our project.
+- Node.js is primarily used for non-blocking, event-driven servers, due ot its single-threaded nature. It's used for traditional web sites and back-end API services, but was designeed with real-tiem, push-based architectures in mind.
+- In order to work with different Node.js version, we also need NVM(Node Version Manager). To setup this, check this article: https://medium.com/@Joachim8675309/installing-node-js-with-nvm-4dc469c977d9
+- For frontend tooling, the npm(node package manager) part of Node.js tool set will likely be part of that our frontend tool set.
+
+In order to check the nvm version, on gitbash; 
+nvm ls
+This will list the different nvm versions installed, a specific version can be chosen as follows;
+nvm use 12.18.1
+
+
+
+
+
+
+
